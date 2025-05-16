@@ -7,6 +7,138 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
   <link rel="stylesheet" href="styles.css">
   <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .phone-frame {
+      position: relative;
+      width: 200px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 36px;
+      border: 4px solid #4CAF50;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 0 8px #222f3e;
+      background: transparent;
+      overflow: hidden;
+      transition: 
+        border-color 0.3s, 
+        box-shadow 0.3s, 
+        transform 0.3s cubic-bezier(.4,1.6,.6,1),
+        z-index 0.3s;
+      cursor: pointer;
+    }
+    .gallery .phone-frame:nth-child(odd) {
+      transform: rotate(-4deg) scale(1.02);
+    }
+    .gallery .phone-frame:nth-child(even) {
+      transform: rotate(3deg) scale(1.03);
+    }
+    .phone-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 32px;
+      display: block;
+      z-index: 1;
+      margin-top: 0;
+      background: #1e1e1e;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      transition: none;
+      pointer-events: none;
+      user-select: none;
+    }
+    /* Hover doar dacă nu e enlarged */
+    .phone-frame:not(.enlarged):hover,
+    .phone-frame:not(.enlarged):focus-within {
+      border-color: #ffd95c;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.7), 0 0 0 10px #ffd95c;
+      transform: scale(1.08) rotate(0deg);
+      z-index: 2;
+    }
+    /* Enlarged la click: exponential (mult mai mare) */
+    .phone-frame.enlarged {
+      border-color: #ffd95c;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.9), 0 0 0 24px #ffd95c;
+      transform: scale(2.2) rotate(0deg);
+      z-index: 20;
+      transition: 
+        border-color 0.3s, 
+        box-shadow 0.4s, 
+        transform 0.45s cubic-bezier(.4,1.6,.6,1),
+        z-index 0.3s;
+    }
+    .phone-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 32px;
+      overflow: hidden;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 22px;
+      background: #ffd95c;
+      border-radius: 12px 12px 18px 18px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 8px;
+      transition: background 0.3s;
+    }
+    .phone-frame:hover .phone-notch,
+    .phone-frame.enlarged .phone-notch {
+      background: #4CAF50;
+    }
+    .phone-notch::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 8px;
+      background: #4CAF50;
+      border-radius: 8px;
+      margin-right: 8px;
+      margin-left: 8px;
+      transition: background 0.3s;
+    }
+    .phone-frame:hover .phone-notch::before,
+    .phone-frame.enlarged .phone-notch::before {
+      background: #ffd95c;
+    }
+    .phone-camera, .phone-sensor {
+      width: 8px;
+      height: 8px;
+      background: #4CAF50;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    .phone-camera {
+      margin-right: 6px;
+    }
+    .phone-sensor {
+      margin-left: 6px;
+    }
+    .phone-frame:hover .phone-camera,
+    .phone-frame:hover .phone-sensor,
+    .phone-frame.enlarged .phone-camera,
+    .phone-frame.enlarged .phone-sensor {
+      background: #ffd95c;
+    }
     .top-bar {
       width: 100%;
       background: #1e293b;
@@ -40,7 +172,7 @@
        transition: background-color 0.3s, transform 0.2s, color 0.2s;
     }
     .lang-switch:hover {
-       background-color: #ffd95c; /* galben pal la hover */
+       background-color: #ffd95c;
        color: #000;
        transform: scale(1.05);
     }
@@ -56,32 +188,6 @@
       max-width: 800px;
       margin: 2rem auto;
       line-height: 1.6;
-    }
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .gallery img {
-      width: 200px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 16px;
-      background: #1e1e1e;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease;
-    }
-    .gallery img:nth-child(odd) {
-      transform: rotate(-4deg) scale(1.02);
-    }
-    .gallery img:nth-child(even) {
-      transform: rotate(3deg) scale(1.03);
-    }
-    .gallery img:hover {
-      transform: scale(1.08) rotate(0deg);
-      z-index: 2;
     }
     .video-container {
       text-align: center;
@@ -107,7 +213,7 @@
       display: block;
       margin: 2rem auto 0 auto;
       padding: 0.3em 1em;
-      background: #4CAF50; /* verde implicit */
+      background: #4CAF50;
       color: #000;
       font-size: 1em;
       border: none;
@@ -120,7 +226,7 @@
       transition: background 0.2s, transform 0.2s, color 0.2s;   
     }
     .back-button:hover {
-      background: #ffd95c; /* galben pal la hover */
+      background: #ffd95c;
       color: #000;
       transform: scale(1.05);
     }
@@ -128,10 +234,17 @@
       font-size: 0.95em;
     }
     @media (max-width: 600px) {
-      .gallery img {
-        width: 100%;
+      .gallery {
+        flex-direction: column;
+        align-items: center;
+      }
+      .phone-frame, .phone-inner img {
+        width: 100vw;
+        max-width: 320px;
         height: auto;
-        transform: none !important;
+      }
+      .phone-inner img {
+        height: auto;
       }
       video {
         width: 100%;
@@ -151,6 +264,14 @@
       }
       .logo-fixed {
         height: 32px;
+      }
+      /* Enlarged pe mobil: să nu depășească ecranul */
+      .phone-frame.enlarged {
+        max-width: 98vw;
+        max-height: 98vh;
+        left: 0 !important;
+        top: 0 !important;
+        transform: scale(1.2) rotate(0deg) !important;
       }
     }
   </style>
@@ -175,10 +296,42 @@
     </p>
 
     <div class="gallery">
-      <img src="img1.jpg" alt="Screenshot 1" />
-      <img src="img2.jpg" alt="Screenshot 2" />
-      <img src="img4.jpg" alt="Screenshot 3" />
-      <img src="img3.jpg" alt="Screenshot 4" />
+      <div class="phone-frame" tabindex="0">
+        <div class="phone-inner">
+          <div class="phone-notch">
+            <div class="phone-camera"></div>
+            <div class="phone-sensor"></div>
+          </div>
+          <img src="img1.jpg" alt="Screenshot 1" />
+        </div>
+      </div>
+      <div class="phone-frame" tabindex="0">
+        <div class="phone-inner">
+          <div class="phone-notch">
+            <div class="phone-camera"></div>
+            <div class="phone-sensor"></div>
+          </div>
+          <img src="img2.jpg" alt="Screenshot 2" />
+        </div>
+      </div>
+      <div class="phone-frame" tabindex="0">
+        <div class="phone-inner">
+          <div class="phone-notch">
+            <div class="phone-camera"></div>
+            <div class="phone-sensor"></div>
+          </div>
+          <img src="img4.jpg" alt="Screenshot 3" />
+        </div>
+      </div>
+      <div class="phone-frame" tabindex="0">
+        <div class="phone-inner">
+          <div class="phone-notch">
+            <div class="phone-camera"></div>
+            <div class="phone-sensor"></div>
+          </div>
+          <img src="img3.jpg" alt="Screenshot 4" />
+        </div>
+      </div>
     </div>
 
     <p class="text-block" data-ro="Fie că planifici o întâlnire rapidă cu prietenii sau un eveniment profesional cu sute de invitați, Optima App te ajută să menții controlul. Notificări, check-in-uri, hărți și colaborare – toate sunt la doar câteva clickuri distanță." 
@@ -238,6 +391,29 @@
       this.textContent = lang === 'ro' ? 'EN' : 'RO';
       document.querySelectorAll('[data-ro]').forEach(el => {
         el.innerHTML = el.getAttribute(`data-${lang}`);
+      });
+    });
+
+    // Enlarged on click/tap
+    document.querySelectorAll('.phone-frame').forEach(frame => {
+      frame.addEventListener('click', function(e) {
+        if (this.classList.contains('enlarged')) {
+          this.classList.remove('enlarged');
+        } else {
+          document.querySelectorAll('.phone-frame.enlarged').forEach(f => f.classList.remove('enlarged'));
+          this.classList.add('enlarged');
+        }
+        e.stopPropagation();
+      });
+    });
+    // Dacă dai click oriunde altundeva, se micșorează toate
+    document.body.addEventListener('click', function() {
+      document.querySelectorAll('.phone-frame.enlarged').forEach(f => f.classList.remove('enlarged'));
+    });
+    // Nu lăsa click-ul pe frame să ajungă la body
+    document.querySelectorAll('.phone-frame').forEach(frame => {
+      frame.addEventListener('click', function(e) {
+        e.stopPropagation();
       });
     });
   </script>
