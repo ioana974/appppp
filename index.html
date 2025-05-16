@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Optima App</title>
+  <link rel="icon" href="https://yourdomain.com/favicon.png" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Email Verified -->
+  <div id="verified" class="container">
+    <h1 data-ro="✅ Email verificat cu succes!" data-en="✅ Email verified successfully!">✅ Email verificat cu succes!</h1>
+    <p data-ro="Contul tău este acum activ. Intră în aplicație și începe să atingi performanța!"
+       data-en="Your account is now active. Enter the app and start performing!">Contul tău este acum activ.</p>
+    <img class="logo" src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Optima Logo">
+    <a href="https://optima-78874.firebaseapp.com/login">
+      <button data-ro="Deschide aplicația" data-en="Open the app">Deschide aplicația</button>
+    </a>
+  </div>
+
+  <!-- Verification Failed -->
+  <div id="failed" class="container">
+    <h1 data-ro="❌ Verificare eșuată" data-en="❌ Verification failed">❌ Verificare eșuată</h1>
+    <p data-ro="Link-ul de verificare este expirat sau invalid. Te rugăm să încerci din nou."
+       data-en="The verification link is expired or invalid. Please try again.">Link-ul de verificare este expirat.</p>
+    <img class="logo" src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Optima Logo">
+    <a href="https://optima-78874.firebaseapp.com/login">
+      <button data-ro="Reîncearcă" data-en="Try Again">Reîncearcă</button>
+    </a>
+  </div>
+
+  <!-- Reset Password -->
+  <div id="reset" class="container">
+    <img class="logo" src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Optima Logo">
+    <h1 data-ro="🔐 Resetează-ți parola" data-en="🔐 Reset your password">🔐 Resetează-ți parola</h1>
+    <p data-ro="Setează o nouă parolă pentru a accesa din nou contul tău."
+       data-en="Set a new password to access your account again.">Setează o nouă parolă.</p>
+    <form id="resetForm">
+      <input type="password" id="newPassword" placeholder="Parolă nouă" required />
+      <input type="password" id="confirmPassword" placeholder="Confirmă parola" required />
+      <button type="submit" data-ro="Resetează parola" data-en="Reset password">Resetează parola</button>
+    </form>
+  </div>
+
+  <!-- Homepage -->
+  <div id="home" class="container">
+    <img class="logo" src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Optima Logo">
+
+    <h1 data-ro="🚀 Optima App – Acționează eficient, obține rezultate!"
+        data-en="🚀 Optima App – Act efficiently, get results!">🚀 Optima App – Acționează eficient!</h1>
+    <p data-ro="Transformă-ți ziua într-o succesiune de realizări. Cu Optima, ești mereu organizat, productiv și cu un pas înainte."
+       data-en="Turn your day into a string of achievements. With Optima, you’re always organized, productive and ahead."><strong>Transformă-ți ziua într-o succesiune de realizări. Cu Optima, ești mereu organizat, productiv și cu un pas înainte.</strong></p>
+
+    <ul class="features">
+      <li data-ro="✅ Planificare clară și intuitivă" data-en="✅ Clear and intuitive planning">✅ Planificare clară și intuitivă</li>
+      <li data-ro="✅ Notificări inteligente și acțiuni prioritare" data-en="✅ Smart notifications and prioritized actions">✅ Notificări inteligente</li>
+      <li data-ro="✅ Vizibilitate completă asupra progresului tău" data-en="✅ Full visibility over your progress">✅ Vizibilitate completă</li>
+    </ul>
+
+    <p data-ro="Descarcă aplicația acum și preia controlul asupra timpului tău!"
+       data-en="Download the app now and take control of your time!"><strong>Descarcă aplicația acum și preia controlul asupra timpului tău!</strong></p>
+
+    <a href="explore.html">
+      <button data-ro="🔓 Descoperă în aplicație" data-en="🔓 Explore in the app">🔓 Descoperă în aplicație</button>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p data-ro="© Optima Technologies. Toate drepturile rezervate." data-en="© Optima Technologies. All rights reserved.">
+        © <span id="year"></span> Optima Technologies. Toate drepturile rezervate.
+      </p>
+      <div class="footer-links">
+        <a href="/termeni" data-ro="Termeni" data-en="Terms">Termeni</a>
+        <a href="/confidentialitate" data-ro="Confidențialitate" data-en="Privacy">Confidențialitate</a>
+        <a href="/contact" data-ro="Contact" data-en="Contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Language Switcher -->
+  <div id="languageToggle" class="lang-switch">EN</div>
+
+  <!-- Scripts -->
+  <script>
+    // Set year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Language toggle
+    const toggle = document.getElementById("languageToggle");
+    let currentLang = "ro";
+
+    toggle.addEventListener("click", () => {
+      currentLang = currentLang === "ro" ? "en" : "ro";
+      toggle.textContent = currentLang.toUpperCase() === "RO" ? "EN" : "RO";
+
+      document.querySelectorAll("[data-ro]").forEach(el => {
+        const currentText = el.innerHTML.trim();
+        const newText = el.dataset[currentLang].trim();
+
+        // Alege textul mai lung
+        el.innerHTML = currentText.length > newText.length ? currentText : newText;
+      });
+    });
+  </script>
+</body>
+</html>

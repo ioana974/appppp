@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Explorează Optima Action</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .top-bar {
+      width: 100%;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 24px;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1002;
+      min-height: 56px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .logo-fixed {
+      height: 40px;
+      width: auto;
+      margin-right: 12px;
+    }
+    .lang-switch {
+       background-color: #4CAF50;
+       color: white;
+       border: none;
+       border-radius: 8px;
+       padding: 10px 16px;
+       font-size: 1em;
+       font-weight: bold;
+       cursor: pointer;
+       box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+       transition: background-color 0.3s, transform 0.2s, color 0.2s;
+    }
+    .lang-switch:hover {
+       background-color: #ffd95c; /* galben pal la hover */
+       color: #000;
+       transform: scale(1.05);
+    }
+    main {
+      padding: 4.5rem 1rem 1rem 1rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .text-block {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      max-width: 800px;
+      margin: 2rem auto;
+      line-height: 1.6;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .gallery img {
+      width: 200px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 16px;
+      background: #1e1e1e;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:nth-child(odd) {
+      transform: rotate(-4deg) scale(1.02);
+    }
+    .gallery img:nth-child(even) {
+      transform: rotate(3deg) scale(1.03);
+    }
+    .gallery img:hover {
+      transform: scale(1.08) rotate(0deg);
+      z-index: 2;
+    }
+    .video-container {
+      text-align: center;
+      margin: 4rem 0 2rem;
+    }
+    video {
+      width: 320px;
+      height: 570px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .download-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .download-buttons img {
+      height: 60px;
+    }
+    .back-button {
+      display: block;
+      margin: 2rem auto 0 auto;
+      padding: 0.3em 1em;
+      background: #4CAF50; /* verde implicit */
+      color: #000;
+      font-size: 1em;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 0;
+      width: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: background 0.2s, transform 0.2s, color 0.2s;   
+    }
+    .back-button:hover {
+      background: #ffd95c; /* galben pal la hover */
+      color: #000;
+      transform: scale(1.05);
+    }
+    footer p {
+      font-size: 0.95em;
+    }
+    @media (max-width: 600px) {
+      .gallery img {
+        width: 100%;
+        height: auto;
+        transform: none !important;
+      }
+      video {
+        width: 100%;
+        height: auto;
+      }
+      .text-block {
+        font-size: 1rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 10px;
+      }
+      .logo-fixed {
+        height: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <img src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Logo Optima" class="logo-fixed" />
+    <div id="languageToggle" class="lang-switch">EN</div>
+  </div>
+
+  <main>
+    <h1 data-ro="Descoperă Optima App" data-en="Discover Optima App">Descoperă Optima App</h1>
+
+    <p class="text-block" data-ro="Optima este aplicația care îți pune ordinea în haosul zilnic. Claritate. Motivație. Fără distrageri. Cu un design intuitiv și funcții reale, fiecare zi devine un pas în față." 
+       data-en="Optima is the app that brings order to daily chaos. Clarity. Motivation. No distractions. With intuitive design and powerful features, every day becomes a step forward.">
+      Optima este aplicația care îți pune ordinea în haosul zilnic. Claritate. Motivație. Fără distrageri. Cu un design intuitiv și funcții reale, fiecare zi devine un pas în față.
+    </p>
+
+    <p class="text-block" data-ro="Optima App este platforma ta inteligentă pentru planificarea și organizarea evenimentelor, indiferent de amploarea lor. Creează, gestionează și distribuie evenimente personale, de familie sau profesionale – totul într-un singur loc, fără complicații." 
+       data-en="Optima App is your smart platform for planning and managing events, big or small. Create, manage, and share personal, family or professional events — all in one place, effortlessly.">
+      Optima App este platforma ta inteligentă pentru planificarea și organizarea evenimentelor, indiferent de amploarea lor. Creează, gestionează și distribuie evenimente personale, de familie sau profesionale – totul într-un singur loc, fără complicații.
+    </p>
+
+    <div class="gallery">
+      <img src="screenshoots/img1.jpg" alt="Screenshot 1" />
+      <img src="screenshoots/img2.jpg" alt="Screenshot 2" />
+      <img src="screenshoots/img3.jpg" alt="Screenshot 3" />
+      <img src="screenshoots/img4.jpg" alt="Screenshot 4" />
+    </div>
+
+    <p class="text-block" data-ro="Fie că planifici o întâlnire rapidă cu prietenii sau un eveniment profesional cu sute de invitați, Optima App te ajută să menții controlul. Notificări, check-in-uri, hărți și colaborare – toate sunt la doar câteva clickuri distanță." 
+       data-en="Whether you're planning a quick coffee meetup or a professional event with hundreds of attendees, Optima App helps you stay in control. Notifications, check-ins, maps and collaboration — all just a few clicks away.">
+      Fie că planifici o întâlnire rapidă cu prietenii sau un eveniment profesional cu sute de invitați, Optima Action te ajută să menții controlul. Notificări, check-in-uri, hărți și colaborare – toate sunt la doar câteva clickuri distanță.
+    </p>
+
+    <p class="text-block" data-ro="Evenimentele tale contează – mici sau mari, spontane sau planificate cu luni înainte. Optima le oferă un spațiu dedicat în care fiecare detaliu prinde viață și fiecare participant știe exact ce urmează." 
+       data-en="Your events matter — whether small or large, spontaneous or planned months ahead. Optima gives them a dedicated space where every detail comes to life and every guest knows what's next.">
+      Evenimentele tale contează – mici sau mari, spontane sau planificate cu luni înainte. Optima Action le oferă un spațiu dedicat în care fiecare detaliu prinde viață și fiecare participant știe exact ce urmează.
+    </p>
+
+    <div class="video-container">
+      <video controls autoplay muted loop>
+        <source src="demo.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <p class="text-block" data-ro="Descarcă acum și fă primul pas spre o versiune mai clară a ta." 
+       data-en="Download now and take the first step toward a clearer version of yourself.">
+      Descarcă acum și fă primul pas spre o versiune mai clară a ta.
+    </p>
+
+    <div class="download-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </a>
+      <a href="https://apps.apple.com/app/id0000000">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+      </a>
+    </div>
+
+    <a href="index.html">
+      <button class="back-button" data-ro="Înapoi la pagina principală" data-en="Back to Homepage">Înapoi la pagina principală</button>
+    </a>
+  </main>
+
+  <footer>
+    <p data-ro="© Optima Technologies. Toate drepturile rezervate." data-en="© Optima Technologies. All rights reserved.">
+      © <span id="year"></span> Optima Technologies. Toate drepturile rezervate.
+    </p>
+    <div class="footer-links">
+      <a href="/termeni" data-ro="Termeni" data-en="Terms">Termeni</a>
+      <a href="/confidentialitate" data-ro="Confidențialitate" data-en="Privacy">Confidențialitate</a>
+      <a href="/contact" data-ro="Contact" data-en="Contact">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Setează anul în footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    let lang = 'ro';
+    const toggle = document.getElementById('languageToggle');
+    toggle.addEventListener('click', function() {
+      lang = lang === 'ro' ? 'en' : 'ro';
+      this.textContent = lang === 'ro' ? 'EN' : 'RO';
+      document.querySelectorAll('[data-ro]').forEach(el => {
+        el.innerHTML = el.getAttribute(`data-${lang}`);
+      });
+    });
+  </script>
+</body>
+</html>
