@@ -53,7 +53,6 @@
       pointer-events: none;
       user-select: none;
     }
-    /* Hover doar dacă nu e enlarged */
     .phone-frame:not(.enlarged):hover,
     .phone-frame:not(.enlarged):focus-within {
       border-color: #ffd95c;
@@ -61,7 +60,6 @@
       transform: scale(1.08) rotate(0deg);
       z-index: 2;
     }
-    /* Enlarged la click: exponential (mult mai mare) */
     .phone-frame.enlarged {
       border-color: #ffd95c;
       box-shadow: 0 32px 80px rgba(0,0,0,0.9), 0 0 0 24px #ffd95c;
@@ -265,7 +263,6 @@
       .logo-fixed {
         height: 32px;
       }
-      /* Enlarged pe mobil: să nu depășească ecranul */
       .phone-frame.enlarged {
         max-width: 98vw;
         max-height: 98vh;
@@ -394,21 +391,53 @@
       });
     });
 
-    // Enlarged on click/tap
+    // --- ANIMATIE SMOOTH CU CURBA EASING ---
+    function animateTransform(element, from, to, duration, easingFn, callback) {
+      const start = performance.now();
+      function frame(now) {
+        let t = Math.min(1, (now - start) / duration);
+        let eased = easingFn(t);
+        let scale = from + (to - from) * eased;
+        element.style.transform = `scale(${scale}) rotate(0deg)`;
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else if (callback) {
+          callback();
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // Easing exponential (easeOutExpo)
+    function easeOutExpo(t) {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    // Enlarged on click/tap cu animatie smooth
     document.querySelectorAll('.phone-frame').forEach(frame => {
       frame.addEventListener('click', function(e) {
-        if (this.classList.contains('enlarged')) {
-          this.classList.remove('enlarged');
-        } else {
-          document.querySelectorAll('.phone-frame.enlarged').forEach(f => f.classList.remove('enlarged'));
+        const enlarged = this.classList.contains('enlarged');
+        document.querySelectorAll('.phone-frame.enlarged').forEach(f => {
+          f.classList.remove('enlarged');
+          animateTransform(f, 2.2, 1, 400, easeOutExpo, () => {
+            f.style.transform = '';
+          });
+        });
+        if (!enlarged) {
           this.classList.add('enlarged');
+          animateTransform(this, 1, 2.2, 500, easeOutExpo);
         }
         e.stopPropagation();
       });
     });
-    // Dacă dai click oriunde altundeva, se micșorează toate
+    // Dacă dai click oriunde altundeva, se micșorează toate cu animatie
     document.body.addEventListener('click', function() {
-      document.querySelectorAll('.phone-frame.enlarged').forEach(f => f.classList.remove('enlarged'));
+      document.querySelectorAll('.phone-frame.enlarged').forEach(f => {
+        f.classList.remove('enlarged');
+        animateTransform(f, 2.2, 1, 400, easeOutExpo, () => {
+          f.style.transform = '';
+        });
+      });
     });
     // Nu lăsa click-ul pe frame să ajungă la body
     document.querySelectorAll('.phone-frame').forEach(frame => {
