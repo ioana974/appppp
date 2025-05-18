@@ -137,26 +137,6 @@
     .phone-frame.enlarged .phone-sensor {
       background: #ffd95c;
     }
-    .top-bar {
-      width: 100%;
-      background: #1e293b;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 24px;
-      box-sizing: border-box;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1002;
-      min-height: 56px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-    .logo-fixed {
-      height: 40px;
-      width: auto;
-      margin-right: 12px;
-    }
     .lang-switch {
        background-color: #4CAF50;
        color: white;
@@ -272,12 +252,76 @@
       }
     }
   </style>
+
+<style>
+.custom-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
+    z-index: 1000;
+}
+.custom-sidebar h2 {
+    font-size: 24px;
+    color: #fdd835;
+}
+.custom-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.custom-sidebar ul li {
+    margin: 12px 0;
+}
+.custom-sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+.custom-sidebar ul li a:hover {
+    color: #fdd835;
+}
+.main-section {
+    margin-left: 240px;
+    padding: 40px;
+}
+</style>
 </head>
 <body>
+  <!-- Bara de sus -->
   <div class="top-bar">
-    <img src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Logo Optima" class="logo-fixed" />
+    <div style="display: flex; align-items: center; gap: 1.2rem;">
+      <button id="menuToggle" class="hamburger" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" style="display: flex; align-items: center;">
+        <img src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Logo Optima" class="logo-fixed" />
+      </a>
+    </div>
     <div id="languageToggle" class="lang-switch">EN</div>
   </div>
+
+  <!-- Meniu lateral stânga -->
+  <nav id="sideMenu" class="side-menu">
+    <div class="menu-links">
+      <a href="overview.html" class="menu-btn">Funcționalități</a>
+      <a href="ai-planuri.html" class="menu-btn">AI & Planuri</a>
+      <a href="explore.html" class="menu-btn">Descoperă în aplicație</a>
+      <a href="contact.html" class="menu-btn">Contact</a>
+    </div>
+    <div class="download-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </a>
+      <a href="https://apps.apple.com/app/id0000000">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+      </a>
+    </div>
+    <button id="closeMenu" aria-label="Închide meniul">&times;</button>
+  </nav>
+  <div id="menuOverlay" class="menu-overlay"></div>
 
   <main>
     <h1 data-ro="Descoperă Optima App" data-en="Discover Optima App">Descoperă Optima App</h1>
@@ -299,7 +343,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img1.jpg" alt="Screenshot 1" />
+          <img src="Screenshoots/img1.jpg" alt="Screenshot 1" />
         </div>
       </div>
       <div class="phone-frame" tabindex="0">
@@ -308,7 +352,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img2.jpg" alt="Screenshot 2" />
+          <img src="Screenshoots/img2.jpg" alt="Screenshot 2" />
         </div>
       </div>
       <div class="phone-frame" tabindex="0">
@@ -317,7 +361,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img4.jpg" alt="Screenshot 3" />
+          <img src="Screenshoots/img4.jpg" alt="Screenshot 3" />
         </div>
       </div>
       <div class="phone-frame" tabindex="0">
@@ -326,7 +370,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img3.jpg" alt="Screenshot 4" />
+          <img src="Screenshoots/img3.jpg" alt="Screenshot 4" />
         </div>
       </div>
     </div>
@@ -352,99 +396,51 @@
       Descarcă acum și fă primul pas spre o versiune mai clară a ta.
     </p>
 
-    <div class="download-buttons">
-      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
-      </a>
-      <a href="https://apps.apple.com/app/id0000000">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
-      </a>
-    </div>
-
     <a href="index.html">
       <button class="back-button" data-ro="Înapoi la pagina principală" data-en="Back to Homepage">Înapoi la pagina principală</button>
     </a>
   </main>
 
-  <footer>
-    <p data-ro="© Optima Technologies. Toate drepturile rezervate." data-en="© Optima Technologies. All rights reserved.">
-      © <span id="year"></span> Optima Technologies. Toate drepturile rezervate.
-    </p>
-    <div class="footer-links">
-      <a href="/termeni" data-ro="Termeni" data-en="Terms">Termeni</a>
-      <a href="/confidentialitate" data-ro="Confidențialitate" data-en="Privacy">Confidențialitate</a>
-      <a href="/contact" data-ro="Contact" data-en="Contact">Contact</a>
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© <span id="year"></span> Optima Technologies. Toate drepturile rezervate.</p>
+      <div class="footer-links">
+        <a href="index.html">Acasă</a>
+        <a href="overview.html">Despre aplicație</a>
+        <a href="ai-planuri.html">AI & Planuri</a>
+        <a href="explore.html">Galerie</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
   </footer>
-
   <script>
-    // Setează anul în footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year") && (document.getElementById("year").textContent = new Date().getFullYear());
 
-    let lang = 'ro';
-    const toggle = document.getElementById('languageToggle');
-    toggle.addEventListener('click', function() {
-      lang = lang === 'ro' ? 'en' : 'ro';
-      this.textContent = lang === 'ro' ? 'EN' : 'RO';
-      document.querySelectorAll('[data-ro]').forEach(el => {
-        el.innerHTML = el.getAttribute(`data-${lang}`);
-      });
-    });
+// Buton meniu hamburger
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeMenu = document.getElementById('closeMenu');
+  menuToggle.onclick = () => {
+    sideMenu.classList.add('open');
+    menuOverlay.classList.add('open');
+  };
+  closeMenu.onclick = menuOverlay.onclick = () => {
+    sideMenu.classList.remove('open');
+    menuOverlay.classList.remove('open');
+  };
 
-    // --- ANIMATIE SMOOTH CU CURBA EASING ---
-    function animateTransform(element, from, to, duration, easingFn, callback) {
-      const start = performance.now();
-      function frame(now) {
-        let t = Math.min(1, (now - start) / duration);
-        let eased = easingFn(t);
-        let scale = from + (to - from) * eased;
-        element.style.transform = `scale(${scale}) rotate(0deg)`;
-        if (t < 1) {
-          requestAnimationFrame(frame);
-        } else if (callback) {
-          callback();
-        }
-      }
-      requestAnimationFrame(frame);
-    }
-
-    // Easing exponential (easeOutExpo)
-    function easeOutExpo(t) {
-      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-    }
-
-    // Enlarged on click/tap cu animatie smooth
-    document.querySelectorAll('.phone-frame').forEach(frame => {
-      frame.addEventListener('click', function(e) {
-        const enlarged = this.classList.contains('enlarged');
-        document.querySelectorAll('.phone-frame.enlarged').forEach(f => {
-          f.classList.remove('enlarged');
-          animateTransform(f, 2.2, 1, 400, easeOutExpo, () => {
-            f.style.transform = '';
-          });
-        });
-        if (!enlarged) {
-          this.classList.add('enlarged');
-          animateTransform(this, 1, 2.2, 500, easeOutExpo);
-        }
-        e.stopPropagation();
-      });
-    });
-    // Dacă dai click oriunde altundeva, se micșorează toate cu animatie
-    document.body.addEventListener('click', function() {
-      document.querySelectorAll('.phone-frame.enlarged').forEach(f => {
-        f.classList.remove('enlarged');
-        animateTransform(f, 2.2, 1, 400, easeOutExpo, () => {
-          f.style.transform = '';
-        });
-      });
-    });
-    // Nu lăsa click-ul pe frame să ajungă la body
-    document.querySelectorAll('.phone-frame').forEach(frame => {
-      frame.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-    });
-  </script>
+  
+// Buton limbă
+let lang = 'ro';
+const toggle = document.getElementById('languageToggle');
+toggle.addEventListener('click', function() {
+  lang = lang === 'ro' ? 'en' : 'ro';
+  this.textContent = lang === 'ro' ? 'EN' : 'RO';
+  document.querySelectorAll('[data-ro]').forEach(el => {
+    el.innerHTML = el.getAttribute(`data-${lang}`);
+  });
+});
+</script>
 </body>
 </html>
