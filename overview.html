@@ -14,22 +14,6 @@
       padding: 0;
       min-height: 100vh;
     }
-    .lang-switch {
-      background: #4CAF50;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      border: none;
-      font-weight: bold;
-      transition: background 0.2s, color 0.2s, transform 0.2s;
-      margin-left: 1rem;
-    }
-    .lang-switch:hover {
-      background: #ffd95c;
-      color: #000;
-      transform: scale(1.05);
-    }
     .side-menu {
       position: fixed;
       top: 0;
@@ -149,6 +133,25 @@
     main .plan-free { color: #4CAF50; font-weight: bold; }
     main .plan-starter { color: #ffd95c; font-weight: bold; }
     main .plan-pro { color: #a259ff; font-weight: bold; }
+    .lang-switch {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, transform 0.2s, color 0.2s;
+    }
+
+    .lang-switch:hover {
+      background-color: #ffd95c;
+      color: #000;
+      transform: scale(1.05);
+    }
+
     @media (max-width: 700px) {
       .logo-fixed { height: 36px; }
       .hamburger { width: 28px; height: 28px; }
