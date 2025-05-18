@@ -293,6 +293,18 @@ a[href="explore.html"] button:hover {
   transition: all 0.3s;
 }
 
+.hamburger:hover {
+  background: none;
+  box-shadow: none;
+  transform: scale(1.12);
+}
+
+/* Opțional: animare linie la hover */
+.hamburger:hover span {
+  background: #ffd95c; /* păstrează culoarea */
+  transition: transform 0.2s;
+}
+
 .side-menu {
   position: fixed;
   top: 0;
