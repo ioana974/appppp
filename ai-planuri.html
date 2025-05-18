@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI, Credite & Planuri – Optima</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      background: #181f2a;
+      padding: 0;
+    }
+    .lang-switch {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, transform 0.2s, color 0.2s;
+    }
+    .lang-switch:hover {
+      background-color: #ffd95c;
+      color: #000;
+      transform: scale(1.05);
+    }
+    /* Meniu lateral stânga */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -270px;
+      width: 250px;
+      height: 100vh;
+      background: #222f3e;
+      box-shadow: 2px 0 16px #0007;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 2.5rem 1.2rem 1.2rem 1.2rem;
+      z-index: 2000;
+      transition: left 0.3s cubic-bezier(.4,1.6,.6,1);
+    }
+    .side-menu.open {
+      left: 0;
+    }
+    .side-menu .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .side-menu a.menu-btn {
+      background: #1e293b;
+      color: #ffd95c;
+      text-decoration: none;
+      font-size: 1.15em;
+      font-weight: 600;
+      padding: 0.9em 1em;
+      border-radius: 8px;
+      border: none;
+      text-align: left;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      margin: 0;
+      display: block;
+    }
+    .side-menu a.menu-btn:hover {
+      background: #ffd95c;
+      color: #1e293b;
+    }
+    .side-menu .download-buttons {
+      margin: 1.5rem 0 0 0;
+      justify-content: flex-start;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .side-menu .download-buttons img {
+      height: 40px;
+    }
+    #closeMenu {
+      background: none;
+      border: none;
+      color: #ffd95c;
+      font-size: 2.2em;
+      align-self: flex-end;
+      margin-top: auto;
+      cursor: pointer;
+    }
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #0008;
+      z-index: 1500;
+    }
+    .menu-overlay.open {
+      display: block;
+    }
+    @media (max-width: 700px) {
+      .logo-fixed { height: 44px; }
+      .side-menu { width: 90vw; }
+      .side-menu .download-buttons img { height: 32px; }
+    }
+    /* Stiluri pentru secțiunea AI */
+    .ai-section {
+      max-width: 900px;
+      margin: 6.5rem auto 2rem auto;
+      background: #222f3e;
+      border-radius: 16px;
+      padding: 2.5rem 1.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      color: #fff;
+    }
+    .ai-section h2 {
+      color: #4CAF50;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .ai-section .jamie-demo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .jamie-bubble {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      font-size: 1.1rem;
+      color: #ffd95c;
+      max-width: 340px;
+      box-shadow: 0 2px 12px #0005;
+    }
+    .jamie-demo img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ffd95c;
+      box-shadow: 0 2px 12px #0005;
+    }
+    .planuri-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2.5rem 0 1.5rem 0;
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px #0005;
+    }
+    .planuri-table th, .planuri-table td {
+      padding: 1rem 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid #333c4a;
+    }
+    .planuri-table th {
+      background: #4CAF50;
+      color: #fff;
+      font-size: 1.1rem;
+    }
+    .planuri-table tr:last-child td {
+      border-bottom: none;
+    }
+    .planuri-table td {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+    }
+    .planuri-table .plan-free {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    .planuri-table .plan-starter {
+      color: #ffd95c;
+      font-weight: bold;
+    }
+    .planuri-table .plan-pro {
+      color: #a259ff;
+      font-weight: bold;
+    }
+    .credit-info {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 1.2rem 1rem;
+      margin: 2rem 0;
+      color: #ffd95c;
+      text-align: center;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 12px #0005;
+    }
+    .ai-section .screenshots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .ai-section .screenshots img {
+      width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0005;
+      background: #fffbe8;
+    }
+    @media (max-width: 700px) {
+      .ai-section, .planuri-table th, .planuri-table td {
+        font-size: 1em;
+        padding: 0.7rem 0.3rem;
+      }
+      .jamie-demo {
+        flex-direction: column;
+      }
+      .ai-section .screenshots {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+
+<style>
+.custom-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
+    z-index: 1000;
+}
+.custom-sidebar h2 {
+    font-size: 24px;
+    color: #fdd835;
+}
+.custom-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.custom-sidebar ul li {
+    margin: 12px 0;
+}
+.custom-sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+.custom-sidebar ul li a:hover {
+    color: #fdd835;
+}
+.main-section {
+    margin-left: 240px;
+    padding: 40px;
+}
+</style>
+</head>
+<body>
+    ☰ Meniu
+</button>
+
+  <!-- Bara de sus -->
+  <div class="top-bar">
+    <div style="display: flex; align-items: center; gap: 1.2rem;">
+      <button id="menuToggle" class="hamburger" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" style="display: flex; align-items: center;">
+        <img src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Logo Optima" class="logo-fixed" />
+      </a>
+    </div>
+    <div id="languageToggle" class="lang-switch">EN</div>
+  </div>
+
+  <!-- Meniu lateral stânga -->
+  <nav id="sideMenu" class="side-menu">
+    <div class="menu-links">
+      <a href="overview.html" class="menu-btn">Funcționalități</a>
+      <a href="ai-planuri.html" class="menu-btn">AI & Planuri</a>
+      <a href="explore.html" class="menu-btn">Descoperă în aplicație</a>
+      <a href="contact.html" class="menu-btn">Contact</a>
+    </div>
+    <div class="download-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </a>
+      <a href="https://apps.apple.com/app/id0000000">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+      </a>
+    </div>
+    <button id="closeMenu" aria-label="Închide meniul">&times;</button>
+  </nav>
+  <div id="menuOverlay" class="menu-overlay"></div>
+
+  <div class="ai-section">
+    <h2>Jamie – Asistentul AI</h2>
+    <div class="jamie-demo">
+      <img src="img/jamie-avatar.png" alt="Jamie AI" />
+      <div class="jamie-bubble">
+        <b>Jamie:</b> „Serios, ai uitat să setezi locația? Hai să-ți arăt cum se face, ca să nu mai pierzi timpul data viitoare.”
+        <div style="margin-top:1rem; color:#fff; font-size:0.95em;">(Transcriere live + animație puncte)</div>
+      </div>
+    </div>
+    <div class="screenshots">
+      <img src="img/jamie-voice-demo.png" alt="Jamie Voice Demo" />
+      <img src="img/ai-optimize-demo.png" alt="Optimizare AI Add Event" />
+    </div>
+    <div class="credit-info">
+      Pentru a accesa funcțiile avansate AI (planificare, analiză, voice chat), folosești <b>credite</b>.<br>
+      Primești gratis zilnic sau prin reclame, sau poți alege un plan premium.
+    </div>
+    <table class="planuri-table">
+      <tr>
+        <th>Plan</th>
+        <th>Preț</th>
+        <th>Ce oferă</th>
+      </tr>
+      <tr>
+        <td class="plan-free">🟢 Free</td>
+        <td>0 lei</td>
+        <td>Acces limitat, reclame, 5 credite/zi</td>
+      </tr>
+      <tr>
+        <td class="plan-starter">🟡 Starter</td>
+        <td>1 USD / o dată</td>
+        <td>20 credite instant, fără reclame</td>
+      </tr>
+      <tr>
+        <td class="plan-pro">🟣 Pro</td>
+        <td>30 USD / lună</td>
+        <td>20 credite/zi, AI nelimitat, fără reclame</td>
+      </tr>
+    </table>
+    <div class="screenshots">
+      <img src="img/planuri-dialog.png" alt="Dialog planuri" />
+      <img src="img/reward-ad-demo.png" alt="Reward ad demo" />
+      <img src="img/credit-balance-demo.png" alt="Credit balance" />
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© <span id="year"></span> Optima Technologies. Toate drepturile rezervate.</p>
+      <div class="footer-links">
+        <a href="index.html">Acasă</a>
+        <a href="overview.html">Funcționalități</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+  document.getElementById("year") && (document.getElementById("year").textContent = new Date().getFullYear());
+
+  // Buton meniu hamburger
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeMenu = document.getElementById('closeMenu');
+  menuToggle.onclick = () => {
+    sideMenu.classList.add('open');
+    menuOverlay.classList.add('open');
+  };
+  closeMenu.onclick = menuOverlay.onclick = () => {
+    sideMenu.classList.remove('open');
+    menuOverlay.classList.remove('open');
+  };
+
+  // Buton limbă
+  let lang = 'ro';
+  const toggle = document.getElementById('languageToggle');
+  toggle.addEventListener('click', function() {
+    lang = lang === 'ro' ? 'en' : 'ro';
+    this.textContent = lang === 'ro' ? 'EN' : 'RO';
+    document.querySelectorAll('[data-ro]').forEach(el => {
+      el.innerHTML = el.getAttribute(`data-${lang}`);
+    });
+  });
+</script>
+
+<script>
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    const sidebar = document.querySelector('.custom-sidebar');
+    sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+});
+window.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.querySelector('.custom-sidebar');
+    sidebar.style.display = 'none';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ce poate face Optima?</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #181f2a;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .lang-switch {
+      background: #4CAF50;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      border: none;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      margin-left: 1rem;
+    }
+    .lang-switch:hover {
+      background: #ffd95c;
+      color: #000;
+      transform: scale(1.05);
+    }
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -270px;
+      width: 250px;
+      height: 100vh;
+      background: #222f3e;
+      box-shadow: 2px 0 16px #0007;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      padding: 2.5rem 1.2rem 1.2rem 1.2rem;
+      z-index: 2000;
+      transition: left 0.3s cubic-bezier(.4,1.6,.6,1);
+    }
+    .side-menu.open {
+      left: 0;
+    }
+    .side-menu .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .side-menu a.menu-btn {
+      background: #1e293b;
+      color: #ffd95c;
+      text-decoration: none;
+      font-size: 1.15em;
+      font-weight: 600;
+      padding: 0.9em 1em;
+      border-radius: 8px;
+      border: none;
+      text-align: left;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      margin: 0;
+      display: block;
+    }
+    .side-menu a.menu-btn:hover {
+      background: #ffd95c;
+      color: #1e293b;
+    }
+    .side-menu .download-buttons {
+      margin: 1.5rem 0 0 0;
+      justify-content: flex-start;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .side-menu .download-buttons img {
+      height: 40px;
+    }
+    #closeMenu {
+      background: none;
+      border: none;
+      color: #ffd95c;
+      font-size: 2.2em;
+      align-self: flex-end;
+      margin-top: auto;
+      cursor: pointer;
+    }
+    .menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #0008;
+      z-index: 1500;
+    }
+    .menu-overlay.open {
+      display: block;
+    }
+    main {
+      max-width: 900px;
+      margin: 7.5rem auto 2rem auto;
+      background: #222f3e;
+      border-radius: 16px;
+      padding: 2.5rem 1.5rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      color: #fff;
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+    main h1, main h2, main h3 {
+      color: #ffd95c;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    main ul {
+      margin-left: 1.5em;
+      margin-bottom: 1.5em;
+    }
+    main .screenshot {
+      display: block;
+      margin: 2rem auto;
+      max-width: 320px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #0005;
+    }
+    main .plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px #0005;
+    }
+    main .plan-table th, main .plan-table td {
+      padding: 1rem 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid #333c4a;
+    }
+    main .plan-table th { background: #4CAF50; color: #fff; font-size: 1.1rem; }
+    main .plan-table tr:last-child td { border-bottom: none; }
+    main .plan-table td { font-size: 1.05rem; color: #cbd5e1; }
+    main .plan-free { color: #4CAF50; font-weight: bold; }
+    main .plan-starter { color: #ffd95c; font-weight: bold; }
+    main .plan-pro { color: #a259ff; font-weight: bold; }
+    @media (max-width: 700px) {
+      .logo-fixed { height: 36px; }
+      .hamburger { width: 28px; height: 28px; }
+      .hamburger span { width: 16px; height: 2.5px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Bara de sus -->
+  <div class="top-bar">
+    <div style="display: flex; align-items: center; gap: 1.2rem;">
+      <button id="menuToggle" class="hamburger" aria-label="Deschide meniul">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" style="display: flex; align-items: center;">
+        <img src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Logo Optima" class="logo-fixed" />
+      </a>
+    </div>
+    <div id="languageToggle" class="lang-switch">EN</div>
+  </div>
+
+  <!-- Meniu lateral stânga -->
+  <nav id="sideMenu" class="side-menu">
+    <div class="menu-links">
+      <a href="overview.html" class="menu-btn">Funcționalități</a>
+      <a href="ai-planuri.html" class="menu-btn">AI & Planuri</a>
+      <a href="explore.html" class="menu-btn">Descoperă în aplicație</a>
+      <a href="contact.html" class="menu-btn">Contact</a>
+    </div>
+    <div class="download-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </a>
+      <a href="https://apps.apple.com/app/id0000000">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+      </a>
+    </div>
+    <button id="closeMenu" aria-label="Închide meniul">&times;</button>
+  </nav>
+  <div id="menuOverlay" class="menu-overlay"></div>
+
+  <main>
+    <h1>Ce poate face Optima?</h1>
+    <h2>🔹 1. Pagina Web – Overview Optima</h2>
+    <p><em>(Poți numi pagina „Ce poate face Optima?” sau „Funcționalități”)</em></p>
+    <h2>🟡 Secțiunea: Descriere generală (Overview)</h2>
+    <p>
+      Optima este asistentul tău personal pentru organizarea evenimentelor. Gândit special pentru echipe, ONG-uri și grupuri școlare, Optima optimizează totul – de la planificare și comunicare, până la analiza de succes.<br>
+      Cu o interfață interactivă și Jamie – AI-ul tău sarcastic dar genial – te vei simți ghidat la fiecare pas.
+    </p>
+    <h2>🟣 Ce poate face aplicația:</h2>
+    <ul>
+      <li>Creare de evenimente pas cu pas, cu ajutor vizual și AI.</li>
+      <li>Atribuire de membri și urmărire în timp real a progresului.</li>
+      <li>Optimizare AI pentru locație, timp și strategii.</li>
+      <li>Chat intern pentru colaborare instant.</li>
+      <li>Analiză post-eveniment, bazată pe feedback și rezultate.</li>
+      <li>Sistem de credite pentru folosirea AI-ului (fără costuri la început).</li>
+      <li>UI animat și fluid, cu un meniu interactiv și asistent vizual.</li>
+    </ul>
+    <h2>🔹 2. Secțiune „Cum accesez meniul?” (mic tutorial)</h2>
+    <p>
+      <b>🔓 Truc rapid pentru navigare:</b><br>
+      Aplicația folosește un sistem de navigare inovator.<br>
+      👉 Fă un <b>pinch</b> pe ecran (folosește două degete și apropie-le) ca să minimizezi ecranul și să accesezi meniul radial.<br>
+      De acolo poți merge oriunde – Dashboard, Setări, Evenimente, sau chiar chema pe Jamie pentru ajutor.
+    </p>
+    <p>
+      <b>📸 Screenshot sugerat:</b><br>
+      o imagine cu ecranul „pinched” și meniul radial deschis + text explicativ adăugat vizual ("Fă pinch pentru a deschide meniul").
+    </p>
+    <h2>🔹 3. Pagină „AI, Credite și Planuri”</h2>
+    <p>
+      <b>🤖 Jamie – Asistentul AI</b><br>
+      Jamie este vocea aplicației Optima. E sarcastic, direct și extrem de eficient.<br>
+      Îți explică fiecare funcție, îți optimizează evenimentele și poate chiar să te tachineze dacă uiți să setezi locația.<br>
+      Poți vorbi cu el, îl poți întreba orice legat de aplicație și îți răspunde în timp real, cu voce.
+    </p>
+    <p>
+      <b>📸 Screenshoturi sugerate:</b><br>
+      Jamie în acțiune (ecran cu transcriere live + animația celor 3 puncte)<br>
+      Ecranul de optimizare AI în Add Event
+    </p>
+    <h3>💳 Sistemul de credite</h3>
+    <p>
+      Pentru a accesa funcțiile avansate AI (planificare, analiză, voice chat), folosești credite.<br>
+      Poți primi:<br>
+      <b>Gratis:</b> zilnic sau prin reclame.<br>
+      <b>Cu planuri premium:</b> mai multe credite, fără reclame.
+    </p>
+    <table class="plan-table">
+      <tr>
+        <th>Plan</th>
+        <th>Preț</th>
+        <th>Ce oferă</th>
+      </tr>
+      <tr>
+        <td class="plan-free">🟢 Free</td>
+        <td>0 lei</td>
+        <td>Acces limitat, reclame, 5 credite/zi</td>
+      </tr>
+      <tr>
+        <td class="plan-starter">🟡 Starter</td>
+        <td>1 USD / o dată</td>
+        <td>20 credite instant, fără reclame</td>
+      </tr>
+      <tr>
+        <td class="plan-pro">🟣 Pro</td>
+        <td>30 USD / lună</td>
+        <td>20 credite/zi, AI nelimitat, fără reclame</td>
+      </tr>
+    </table>
+    <p>
+      <b>📸 Screenshoturi sugerate:</b><br>
+      Dialogul cu cele 3 planuri<br>
+      Ecranul de reward ad (timp ce rulează un ad)<br>
+      Credit balance actualizat
+    </p>
+    <h2>🔹 Structură recomandată pagină web</h2>
+    <ul>
+      <li>Landing Hero Section: Logo, slogan ("Optimized outreach, maximum success"), buton „Vezi ce poate face”.</li>
+      <li>Funcționalități principale (cards cu iconuri): Event planner, AI assistant, Team assign, Real-time chat, Credit system</li>
+      <li>Video / GIF scurt cu Jamie sau UI animat</li>
+      <li>Sau un carousel de screenshoturi animate</li>
+      <li>Tutorial rapid – accesare meniu / AI (Include GIF sau screenshot cu „pinch to menu”)</li>
+      <li>Pagina dedicată „Jamie & Planuri”: Ce poate face Jamie (Voice, GPT, analiză, reminders), Sistemul de credite, Cele 3 planuri (cu carduri vizuale)</li>
+    </ul>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>© <span id="year"></span> Optima Technologies. Toate drepturile rezervate.</p>
+      <div class="footer-links">
+        <a href="index.html">Acasă</a>
+        <a href="overview.html">Despre aplicație</a>
+        <a href="ai-planuri.html">AI & Planuri</a>
+        <a href="explore.html">Galerie</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+  document.getElementById("year") && (document.getElementById("year").textContent = new Date().getFullYear());
+
+  // Buton meniu hamburger
+  const menuToggle = document.getElementById('menuToggle');
+  const sideMenu = document.getElementById('sideMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const closeMenu = document.getElementById('closeMenu');
+  menuToggle.onclick = () => {
+    sideMenu.classList.add('open');
+    menuOverlay.classList.add('open');
+  };
+  closeMenu.onclick = menuOverlay.onclick = () => {
+    sideMenu.classList.remove('open');
+    menuOverlay.classList.remove('open');
+  };
+
+  // Buton limbă
+  let lang = 'ro';
+  const toggle = document.getElementById('languageToggle');
+  toggle.addEventListener('click', function() {
+    lang = lang === 'ro' ? 'en' : 'ro';
+    this.textContent = lang === 'ro' ? 'EN' : 'RO';
+    document.querySelectorAll('[data-ro]').forEach(el => {
+      el.innerHTML = el.getAttribute(`data-${lang}`);
+    });
+  });
+</script>
+</body>
+</html>
