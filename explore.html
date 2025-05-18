@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Păstrezi DOAR stilurile pentru conținutul paginii, nu pentru sidebar vechi */
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -252,42 +253,6 @@
       }
     }
   </style>
-
-<style>
-.custom-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 100%;
-    background-color: #111;
-    color: #fff;
-    padding: 20px;
-    z-index: 1000;
-}
-.custom-sidebar h2 {
-    font-size: 24px;
-    color: #fdd835;
-}
-.custom-sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-.custom-sidebar ul li {
-    margin: 12px 0;
-}
-.custom-sidebar ul li a {
-    color: white;
-    text-decoration: none;
-}
-.custom-sidebar ul li a:hover {
-    color: #fdd835;
-}
-.main-section {
-    margin-left: 240px;
-    padding: 40px;
-}
-</style>
 </head>
 <body>
   <!-- Bara de sus -->
@@ -312,10 +277,10 @@
       <a href="contact.html" class="menu-btn">Contact</a>
     </div>
     <div class="download-buttons">
-      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app">
+      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app" target="_blank" rel="noopener">
         <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
       </a>
-      <a href="https://apps.apple.com/app/id0000000">
+      <a href="https://apps.apple.com/app/id0000000" target="_blank" rel="noopener">
         <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
       </a>
     </div>
@@ -343,7 +308,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img1.jpg" alt="Screenshot 1" />
+          <img src="Screenshoots/img1.jpg" alt="Screenshot 1" />
         </div>
       </div>
       <div class="phone-frame" tabindex="0">
@@ -352,7 +317,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img2.jpg" alt="Screenshot 2" />
+          <img src="Screenshoots/img2.jpg" alt="Screenshot 2" />
         </div>
       </div>
       <div class="phone-frame" tabindex="0">
@@ -361,7 +326,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img4.jpg" alt="Screenshot 3" />
+          <img src="Screenshoots/img4.jpg" alt="Screenshot 3" />
         </div>
       </div>
       <div class="phone-frame" tabindex="0">
@@ -370,7 +335,7 @@
             <div class="phone-camera"></div>
             <div class="phone-sensor"></div>
           </div>
-          <img src="img3.jpg" alt="Screenshot 4" />
+          <img src="Screenshoots/img3.jpg" alt="Screenshot 4" />
         </div>
       </div>
     </div>
@@ -414,33 +379,32 @@
     </div>
   </footer>
   <script>
-document.getElementById("year") && (document.getElementById("year").textContent = new Date().getFullYear());
+    document.getElementById("year") && (document.getElementById("year").textContent = new Date().getFullYear());
 
-// Buton meniu hamburger
-  const menuToggle = document.getElementById('menuToggle');
-  const sideMenu = document.getElementById('sideMenu');
-  const menuOverlay = document.getElementById('menuOverlay');
-  const closeMenu = document.getElementById('closeMenu');
-  menuToggle.onclick = () => {
-    sideMenu.classList.add('open');
-    menuOverlay.classList.add('open');
-  };
-  closeMenu.onclick = menuOverlay.onclick = () => {
-    sideMenu.classList.remove('open');
-    menuOverlay.classList.remove('open');
-  };
+    // Buton meniu hamburger
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+    menuToggle.onclick = () => {
+      sideMenu.classList.add('open');
+      menuOverlay.classList.add('open');
+    };
+    closeMenu.onclick = menuOverlay.onclick = () => {
+      sideMenu.classList.remove('open');
+      menuOverlay.classList.remove('open');
+    };
 
-  
-// Buton limbă
-let lang = 'ro';
-const toggle = document.getElementById('languageToggle');
-toggle.addEventListener('click', function() {
-  lang = lang === 'ro' ? 'en' : 'ro';
-  this.textContent = lang === 'ro' ? 'EN' : 'RO';
-  document.querySelectorAll('[data-ro]').forEach(el => {
-    el.innerHTML = el.getAttribute(`data-${lang}`);
-  });
-});
-</script>
+    // Buton limbă
+    let lang = 'ro';
+    const toggle = document.getElementById('languageToggle');
+    toggle.addEventListener('click', function() {
+      lang = lang === 'ro' ? 'en' : 'ro';
+      this.textContent = lang === 'ro' ? 'EN' : 'RO';
+      document.querySelectorAll('[data-ro]').forEach(el => {
+        el.innerHTML = el.getAttribute(`data-${lang}`);
+      });
+    });
+  </script>
 </body>
 </html>
