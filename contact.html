@@ -4,8 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact – Optima</title>
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="main.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @media (max-width: 700px) {
+      .logo-fixed { height: 44px; }
+      .side-menu { width: 90vw; }
+    }
+  </style>
 </head>
 <body>
 
@@ -19,16 +24,28 @@
         <img src="https://i.ibb.co/20Y2p8Gv/logo-foreground.png" alt="Logo Optima" class="logo-fixed" />
       </a>
     </div>
+    <div id="languageToggle" class="lang-switch">EN</div>
   </div>
 
-  <!-- Meniul lateral -->
+  <!-- Meniu lateral identic -->
   <nav id="sideMenu" class="side-menu">
-    <a href="index.html">Acasă</a>
-    <a href="explore.html">Explorează</a>
-    <a href="overview.html">Prezentare</a>
-    <a href="ai-planuri.html">AI & Planuri</a>
-    <a href="contact.html" class="active">Contact</a>
+    <div class="menu-links">
+      <a href="overview.html" class="menu-btn">Funcționalități</a>
+      <a href="ai-planuri.html" class="menu-btn">AI & Planuri</a>
+      <a href="explore.html" class="menu-btn">Descoperă în aplicație</a>
+      <a href="contact.html" class="menu-btn active">Contact</a>
+    </div>
+    <div class="download-buttons">
+      <a href="https://play.google.com/store/apps/details?id=com.optimaction.app" target="_blank" rel="noopener">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" />
+      </a>
+      <a href="https://apps.apple.com/app/id0000000" target="_blank" rel="noopener">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" />
+      </a>
+    </div>
+    <button id="closeMenu" aria-label="Închide meniul">&times;</button>
   </nav>
+  <div id="menuOverlay" class="menu-overlay"></div>
 
   <!-- Conținut principal -->
   <div class="container" style="display: block; padding-top: 30px;">
@@ -41,8 +58,33 @@
     </div>
   </div>
 
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
+  <!-- Script pentru meniu și limbă -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const closeMenu = document.getElementById('closeMenu');
+
+    menuToggle.onclick = () => {
+      sideMenu.classList.add('open');
+      menuOverlay.classList.add('open');
+    };
+
+    closeMenu.onclick = menuOverlay.onclick = () => {
+      sideMenu.classList.remove('open');
+      menuOverlay.classList.remove('open');
+    };
+
+    let lang = 'ro';
+    const toggle = document.getElementById('languageToggle');
+    toggle.addEventListener('click', function () {
+      lang = lang === 'ro' ? 'en' : 'ro';
+      this.textContent = lang === 'ro' ? 'EN' : 'RO';
+      document.querySelectorAll('[data-ro]').forEach(el => {
+        el.innerHTML = el.getAttribute(`data-${lang}`);
+      });
+    });
+  </script>
 
 </body>
 </html>
